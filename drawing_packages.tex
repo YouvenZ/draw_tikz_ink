@@ -1,0 +1,165 @@
+\documentclass{article}
+
+% --- Your Math Packages (Keep These!) ---
+\usepackage{amsmath,amsthm,amssymb,amsfonts}
+
+% ============ COLOR ============
+\usepackage{xcolor}
+
+% ============ TIKZ AND DRAWING ============
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta}
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{shapes.arrows}
+\usetikzlibrary{positioning}
+\usetikzlibrary{calc}
+\usetikzlibrary{decorations.pathreplacing}
+\usetikzlibrary{decorations.markings}
+\usetikzlibrary{patterns}
+\usetikzlibrary{backgrounds}
+\usetikzlibrary{fit}
+\usetikzlibrary{matrix}
+\usetikzlibrary{chains}
+\usetikzlibrary{shadows}
+
+% ============ PGFPLOTS (for graphs/plots) ============
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+% ============ TABLE PACKAGES ============
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{colortbl}
+\usepackage{makecell}
+
+% ============ CUSTOM COLUMN TYPES ============
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\arraybackslash}p{#1}}
+
+
+% --- Figure and Graphics Packages ---
+\usepackage{graphicx}     % ESSENTIAL: For including images with \includegraphics
+\usepackage{subcaption}   % For creating subfigures and subtables (e.g., "Figure 1a" and "Figure 1b")
+
+% --- "Beautiful" Table Packages ---
+\usepackage{booktabs}     % ESSENTIAL: For professional-looking, "publication-quality" tables
+                         % Provides \toprule, \midrule, \bottomrule
+\usepackage{tabularx}     % For tables that automatically adjust column widths to fit a total width
+\usepackage{siunitx}      % For aligning numbers by decimal point (looks very clean)
+\usepackage{multirow}     % For table cells that span multiple rows
+% \usepackage{longtable}  % Uncomment this if you have tables that must break across pages
+
+% --- General Style & Referencing Packages ---
+\usepackage[table]{xcolor} % Replaces 'color'. Gives more power, and [table] option lets you color rows
+\usepackage{caption}      % Gives you full control over caption appearance (font, spacing, etc.)
+\usepackage{hyperref}     % Makes all your references (figures, tables, sections) clickable PDFs
+\usepackage{cleveref}     % Automatically writes "Figure 1" or "Table 2" instead of just the number.
+                         % Use \cref{label} instead of \ref{label}
+
+% --- Optional (but recommended) Setups ---
+
+% Make captions look a little nicer
+\captionsetup{font=small, labelfont=bf, skip=5pt}
+
+% Make hyperref links look clean
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,      % color of internal links (e.g., \cref)
+    citecolor=blue,      % color of links to bibliography
+    urlcolor=blue        % color of external links
+}
+
+\definecolor{myblue}{HTML}{2B83BA}
+\definecolor{mygreen}{HTML}{5AAE61}
+\definecolor{myred}{HTML}{D7191C}
+\definecolor{bestcell}{HTML}{FFF7BC} % Soft yellow for best cell
+\definecolor{headerrow}{gray}{0.92}  % Light gray for header
+
+
+% ============ OUTSTANDING TIKZ STYLES ============
+
+% ============ NODE STYLES ============
+\tikzset{
+    % Modern boxes
+    modern box/.style={rectangle, rounded corners=3pt, draw, thick, minimum width=2.5cm, minimum height=1cm, align=center, fill=blue!10, draw=blue!60, text=black},
+    accent box/.style={rectangle, rounded corners=3pt, draw, very thick, minimum width=2.5cm, minimum height=1cm, align=center, fill=orange!20, draw=orange!80, text=black, drop shadow={opacity=0.3, shadow xshift=2pt, shadow yshift=-2pt}},
+    glass box/.style={rectangle, rounded corners=5pt, draw, thick, minimum width=2.5cm, minimum height=1cm, align=center, fill=white, fill opacity=0.7, draw=cyan!60, text opacity=1},
+    % Professional cards
+    card/.style={rectangle, rounded corners=5pt, draw, very thick, minimum width=3cm, minimum height=2cm, align=center, fill=white, draw=gray!50, text=black, drop shadow={opacity=0.2, shadow xshift=3pt, shadow yshift=-3pt}},
+    % Circular nodes
+    process/.style={circle, draw, thick, minimum size=1.2cm, align=center, fill=green!20, draw=green!60, text=black},
+    decision/.style={diamond, draw, thick, aspect=2, align=center, fill=yellow!20, draw=orange!60, text=black, inner sep=2pt},
+    % Terminal nodes
+    terminal/.style={rectangle, rounded corners=10pt, draw, thick, minimum width=2cm, minimum height=0.8cm, align=center, fill=red!20, draw=red!60, text=black},
+    % Database style
+    database/.style={cylinder, draw, thick, shape border rotate=90, minimum width=1.5cm, minimum height=1.5cm, align=center, fill=purple!20, draw=purple!60, text=black, aspect=0.3},
+    % Cloud style
+    cloud node/.style={cloud, draw, thick, cloud puffs=10, cloud puff arc=120, minimum width=2cm, minimum height=1cm, align=center, fill=blue!10, draw=blue!60, text=black},
+    % Gradient nodes
+    gradient box/.style={rectangle, rounded corners=3pt, draw=none, thick, minimum width=2.5cm, minimum height=1cm, align=center, top color=blue!40, bottom color=blue!10, text=black},
+    % Neon style
+    neon/.style={rectangle, rounded corners=3pt, draw, line width=2pt, minimum width=2.5cm, minimum height=1cm, align=center, fill=black, draw=cyan, text=cyan},
+    % Badge style
+    badge/.style={circle, draw, very thick, minimum size=1cm, align=center, fill=red!80, draw=red!50!black, text=white, font=\bfseries},
+}
+
+% ============ ARROW STYLES ============
+\tikzset{
+    % Standard arrows
+    arrow/.style={-{Stealth[length=3mm, width=2mm]}, thick},
+    thick arrow/.style={-{Stealth[length=4mm, width=3mm]}, very thick},
+    double arrow/.style={{Stealth[length=3mm, width=2mm]}-{Stealth[length=3mm, width=2mm]}, thick},
+    % Dashed and dotted
+    dashed arrow/.style={-{Stealth[length=3mm]}, thick, dashed, dash pattern=on 4pt off 2pt},
+    dotted arrow/.style={-{Stealth[length=3mm]}, thick, dotted},
+    % Colored arrows
+    red arrow/.style={-{Stealth[length=3mm, width=2mm]}, thick, draw=red!70},
+    blue arrow/.style={-{Stealth[length=3mm, width=2mm]}, thick, draw=blue!70},
+    green arrow/.style={-{Stealth[length=3mm, width=2mm]}, thick, draw=green!70},
+    % Curved arrows
+    curved arrow/.style={-{Stealth[length=3mm]}, thick, bend left=20},
+    % Flow arrows
+    flow/.style={-{Stealth[length=3mm, width=2mm]}, thick, draw=blue!60},
+    data flow/.style={-{Stealth[length=3mm, width=2mm]}, thick, dashed, draw=green!60},
+}
+
+% ============ BLOCK DIAGRAM STYLES ============
+\tikzset{
+    % Input/Output
+    io/.style={trapezium, trapezium left angle=70, trapezium right angle=110, draw, thick, minimum width=2cm, minimum height=0.8cm, align=center, fill=cyan!20, draw=cyan!60, text=black},
+    % Process block
+    proc/.style={rectangle, draw, thick, minimum width=2.5cm, minimum height=1cm, align=center, fill=blue!15, draw=blue!60, text=black},
+    % Subprocess
+    subproc/.style={rectangle, draw, thick, double distance=2pt, minimum width=2.5cm, minimum height=1cm, align=center, fill=blue!10, draw=blue!60, text=black},
+}
+
+% ============ MATRIX/TABLE STYLES ============
+\tikzset{
+    matrix node/.style={rectangle, draw, thick, minimum width=1cm, minimum height=0.8cm, fill=gray!10, draw=gray!60, align=center},
+    header/.style={rectangle, draw, thick, minimum width=1cm, minimum height=0.8cm, fill=blue!30, draw=blue!60, align=center, font=\bfseries},
+}
+
+% ============ SPECIAL EFFECTS ============
+\tikzset{
+    % Glow effect
+    glow/.style={draw=orange, line width=1pt, fill=yellow!20},
+    % Emphasis
+    highlight/.style={draw=red, very thick, dashed, rounded corners=2pt},
+    % Annotation
+    note/.style={rectangle, rounded corners=2pt, draw, thin, fill=yellow!30, draw=orange!80, text=black, align=left, font=\small},
+}
+
+% ============ LAYERED ARCHITECTURE ============
+\tikzset{
+    layer/.style={rectangle, rounded corners=3pt, draw, thick, minimum width=6cm, minimum height=1.2cm, align=center, fill=#1!20, draw=#1!60, text=black},
+    layer/.default=blue,
+}
+
+% ============ NETWORK DIAGRAM STYLES ============
+\tikzset{
+    client/.style={rectangle, rounded corners=2pt, draw, thick, minimum width=1.8cm, minimum height=1.2cm, align=center, fill=blue!10, draw=blue!60, text=black},
+    router/.style={regular polygon, regular polygon sides=6, draw, thick, minimum size=1.5cm, align=center, fill=orange!20, draw=orange!60, text=black},
+    server/.style={rectangle, rounded corners=2pt, draw, thick, minimum width=1.5cm, minimum height=2cm, align=center, fill=gray!20, draw=gray!60, text=black},
+}
