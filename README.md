@@ -17,6 +17,20 @@ This preamble file (`drawing_packages.tex`) provides a pre-configured LaTeX envi
 
 ---
 
+## Live demo 
+
+<div align="center">
+
+> 🎥 **[Watch the full tutorial here](#)** | ⭐ **Don't forget to subscribe!**
+
+<!-- Replace VIDEO_ID with your actual YouTube video ID -->
+[![Watch the Demo](https://img.youtube.com/vi/85kKPOkd9oo/maxresdefault.jpg)](https://www.youtube.com/watch?v=85kKPOkd9oo)
+
+*Click to watch the full tutorial on YouTube*
+
+</div>
+
+
 ## 🚀 Quick Start
 
 ### 1. Locate the File
