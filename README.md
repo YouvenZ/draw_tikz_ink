@@ -1,4 +1,4 @@
-Collecting workspace information# TikZ Drawing Packages for TexText
+# TikZ Drawing Packages for TexText
 
 A comprehensive LaTeX preamble file for creating advanced diagrams, plots, and tables directly in Inkscape using the [TexText extension](https://textext.github.io/textext/).
 
